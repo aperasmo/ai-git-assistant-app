@@ -1,18 +1,18 @@
 # AI Git Assistant
 
-**Use plain English to manage your Git projects — no commands to memorise.**
+**Use plain English to manage your Git projects - no commands to memorise.**
 
-AI Git Assistant is a Windows desktop app that turns what you want to do into the exact Git steps needed. Type something like *"commit all my changes with message 'Fix login bug'"* and the app shows you exactly what it will run — before running anything. You review, you approve, it executes.
+AI Git Assistant is a Windows desktop app that turns what you want to do into the exact Git steps needed. Type something like *"commit all my changes with message 'Fix login bug'"* and the app shows you exactly what it will run - before running anything. You review, you approve, it executes.
 
 ---
 
 ## What it does
 
-- **Understands plain English** — type what you want, not `git add -A && git commit -m "…"`
-- **Shows every step before running** — nothing happens without your approval
+- **Understands plain English** - type what you want, not `git add -A && git commit -m "…"`
+- **Shows every step before running** - nothing happens without your approval
 - **Works with any Git repository** on your machine
 - **Connects to an AI provider** (optional) so it can understand requests the built-in patterns don't cover
-- **Safe by design** — no force pushes, no hard resets, no surprises
+- **Safe by design** - no force pushes, no hard resets, no surprises
 
 ---
 
@@ -24,7 +24,7 @@ AI Git Assistant is a Windows desktop app that turns what you want to do into th
 | Plain English input | ✅ | ❌ partial | ✅ | ✅ |
 | Shows plan before running | ✅ always | ❌ | partial | ❌ |
 | Works offline (Ollama) | ✅ | ✅ | ❌ | ❌ |
-| Free — no subscription | ✅ | ❌ | ✅ | ❌ |
+| Free - no subscription | ✅ | ❌ | ✅ | ❌ |
 | No account needed | ✅ | ❌ | ❌ | ❌ |
 | Built-in local planner (no API cost) | ✅ | ❌ | ❌ | ❌ |
 
@@ -51,12 +51,12 @@ That's it. No Python, no Node.js, nothing else to install.
 
 ## Quick start (5 minutes)
 
-### 1 — Add your repository
+### 1 - Add your repository
 
 Click **+ Add** in the left sidebar and select your project folder.
 The app automatically reads your branches, changed files, and remote connections.
 
-### 2 — Run a command using the command bar
+### 2 - Run a command using the command bar
 
 The bar at the bottom has two rows of buttons:
 
@@ -67,7 +67,7 @@ The bar at the bottom has two rows of buttons:
 
 Click any button and the app walks you through it step by step.
 
-### 3 — Or just type what you want
+### 3 - Or just type what you want
 
 Use the text box at the very bottom. Examples that work right away:
 
@@ -88,9 +88,9 @@ The app turns your sentence into a Git plan and shows it to you before doing any
 
 ## Setting up AI (optional but recommended)
 
-The built-in planner handles most common requests. For everything else — unusual phrasing, complex multi-step tasks — you can connect an AI provider and the app becomes fully conversational.
+The built-in planner handles most common requests. For everything else - unusual phrasing, complex multi-step tasks - you can connect an AI provider and the app becomes fully conversational.
 
-### Step 1 — Get an API key
+### Step 1 - Get an API key
 
 Choose one provider (all have free tiers or cheap pay-as-you-go):
 
@@ -102,7 +102,7 @@ Choose one provider (all have free tiers or cheap pay-as-you-go):
 | **OpenAI** | [platform.openai.com](https://platform.openai.com) | Widely known |
 | **Ollama** | [ollama.com](https://ollama.com) | 100% local, no key needed, requires separate install |
 
-### Step 2 — Add it to the app
+### Step 2 - Add it to the app
 
 1. Click **Settings** in the top-right corner
 2. Choose your provider from the dropdown
@@ -110,9 +110,9 @@ Choose one provider (all have free tiers or cheap pay-as-you-go):
 4. Click **Save**
 5. Click **Test connection** to confirm it works
 
-### Step 3 — That's it
+### Step 3 - That's it
 
-From now on, any request the app doesn't recognise locally is automatically sent to your AI provider. You still see and approve every step — the AI just figures out what steps to take.
+From now on, any request the app doesn't recognise locally is automatically sent to your AI provider. You still see and approve every step - the AI just figures out what steps to take.
 
 ---
 
@@ -172,7 +172,7 @@ New to the app? Click the **?** button in the top-right corner to launch a guide
 
 ## Git command reference
 
-Click **Help** in the top-right corner for a full reference of every supported command — including syntax, examples, and which ones require a terminal.
+Click **Help** in the top-right corner for a full reference of every supported command - including syntax, examples, and which ones require a terminal.
 
 ---
 
@@ -183,7 +183,7 @@ Git for Windows is not installed or not on your PATH.
 Download it from [git-scm.com/download/win](https://git-scm.com/download/win) and restart the app.
 
 **"The local planner did not recognise this request"**
-Either rephrase your request, or set up an AI provider in Settings — it will handle anything the built-in patterns miss.
+Either rephrase your request, or set up an AI provider in Settings - it will handle anything the built-in patterns miss.
 
 **Test connection shows an error**
 Double-check your API key. Make sure you clicked **Save** before clicking **Test connection**.
@@ -202,7 +202,7 @@ Delete that file for a completely clean start.
 
 - Your code and file contents are **never sent anywhere**
 - Only the **names of changed files**, current **branch**, and your **typed request** are sent to the AI provider when the AI fallback is used
-- If you use Ollama, everything stays on your machine — nothing leaves your computer
+- If you use Ollama, everything stays on your machine - nothing leaves your computer
 
 ---
 
