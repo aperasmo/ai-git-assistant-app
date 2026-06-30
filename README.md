@@ -13,7 +13,7 @@ AI Git Assistant now includes the **Phase C Git client feature set**:
 - Plain-English Git planning with review-before-run approval
 - Local repository management: add, initialise, clone, and remember repos
 - Local planner plus optional LLM fallback for Anthropic, Gemini, OpenAI, Groq, and Ollama
-- Full diff viewer, commit graph, branch list, remote status, file history, and blame
+- Full diff viewer, commit graph, branch list, remote status, release tags, file history, and blame
 - Stash list, stash inspection, apply, pop, and drop
 - Commit, push, pull, branch switching, branch creation/deletion, staging, unstaging, and discard flows
 - Merge workflow with conflict detection, conflict snippets, guided continue, and abort
@@ -59,7 +59,7 @@ That's it. No Python, no Node.js, nothing else to install.
 
 ## Installation
 
-1. Download **`AI Git Assistant_0.1.0_x64-setup.exe`** from the [Releases](https://github.com/aperasmo/ai-git-assistant-app/releases) page
+1. Download **`AI Git Assistant_0.3.0_x64-setup.exe`** from the [Releases](https://github.com/aperasmo/ai-git-assistant-app/releases) page
 2. Double-click the installer and follow the prompts
 3. Launch **AI Git Assistant** from your Start menu or desktop shortcut
 
@@ -98,6 +98,8 @@ history README.md
 blame README.md
 show stashes
 show remotes
+show tags
+show tag v0.3.0
 show conflicts
 commit all my changes with message "Fix login bug"
 push and commit everything with message "Add dark mode"
@@ -106,6 +108,8 @@ switch to main
 create branch feature/new-login
 stash my changes
 merge feature/new-login
+create tag v0.3.0 with message "Release v0.3.0"
+push tag v0.3.0
 ```
 
 The app turns your sentence into a Git plan and shows it to you before doing anything.
@@ -173,6 +177,8 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `show stashes` | Local stash entries |
 | `inspect stash@{0}` | Patch for one stash entry |
 | `show remotes` | Configured remote URLs |
+| `show tags` | Local release tags |
+| `show tag v0.3.0` | Inspect one tag |
 | `history README.md` | File-specific commit history |
 | `blame README.md` | Line authorship for one file |
 | `show conflicts` | Conflicted files, marker snippets, and next steps |
@@ -196,6 +202,9 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `merge feature/name` | Merge a local branch |
 | `continue merge` | Commit a resolved merge |
 | `abort merge` | Abort an in-progress merge |
+| `create tag v0.3.0 with message "Release v0.3.0"` | Create an annotated local tag |
+| `push tag v0.3.0` | Push one explicit tag to the remote |
+| `delete tag v0.3.0` | Delete a local tag after approval |
 | `unstage login.py` | Remove file from staging |
 | `discard changes in login.py` | Revert file to last commit |
 
@@ -214,6 +223,7 @@ AI Git Assistant is not just a chat box. It also gives you the day-to-day Git vi
 - **Blame** - see who last changed each line
 - **Stash tools** - list, inspect, apply, pop, and drop stashes
 - **Remote view** - see configured remotes and refresh ahead/behind counts
+- **Release tags** - list, inspect, create, push, and delete explicit tags
 - **Conflict guide** - list conflicted files, show conflict marker snippets, then continue or abort
 
 ---
