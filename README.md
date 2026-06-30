@@ -6,9 +6,18 @@ AI Git Assistant is a Windows desktop app that turns what you want to do into th
 
 ---
 
-## Current release
+## Current app
 
-**0.1.0 - Phase A** is published as a Windows installer. It includes the local planner, approval-based Git execution, repository management, command wizard, and LLM fallback for Anthropic, Gemini, OpenAI, Groq, and Ollama.
+AI Git Assistant now includes the **Phase C Git client feature set**:
+
+- Plain-English Git planning with review-before-run approval
+- Local repository management: add, initialise, clone, and remember repos
+- Local planner plus optional LLM fallback for Anthropic, Gemini, OpenAI, Groq, and Ollama
+- Full diff viewer, commit graph, branch list, remote status, file history, and blame
+- Stash list, stash inspection, apply, pop, and drop
+- Commit, push, pull, branch switching, branch creation/deletion, staging, unstaging, and discard flows
+- Merge workflow with conflict detection, conflict snippets, guided continue, and abort
+- Diagnostics panel, local log viewer/export, encrypted API key storage, and repeatable Windows installer builds
 
 ---
 
@@ -17,6 +26,7 @@ AI Git Assistant is a Windows desktop app that turns what you want to do into th
 - **Understands plain English** - type what you want, not `git add -A && git commit -m "…"`
 - **Shows every step before running** - nothing happens without your approval
 - **Works with any Git repository** on your machine
+- **Gives you Git-client visibility** - inspect diffs, history, blame, branches, stashes, remotes, and conflicts
 - **Connects to an AI provider** (optional) so it can understand requests the built-in patterns don't cover
 - **Safe by design** - no force pushes, no hard resets, no surprises
 
@@ -33,6 +43,8 @@ AI Git Assistant is a Windows desktop app that turns what you want to do into th
 | Free - no subscription | ✅ | ❌ | ✅ | ❌ |
 | No account needed | ✅ | ❌ | ❌ | ❌ |
 | Built-in local planner (no API cost) | ✅ | ❌ | ❌ | ❌ |
+| Approval gate before writes | ✅ | ❌ | partial | ❌ |
+| Guided conflict workflow | ✅ | ✅ | ❌ | ❌ |
 
 ---
 
@@ -68,8 +80,8 @@ The bar at the bottom has two rows of buttons:
 
 | Row | What it does |
 |-----|-------------|
-| **READ** | View status, recent commits, file differences, branches |
-| **WRITE** | Commit, push, pull, switch branch, stash, and more |
+| **READ** | View status, diffs, commits, graph, branches, stashes, remotes, history, blame, conflicts |
+| **WRITE** | Commit, push, pull, switch branch, stash, merge, stage, unstage, discard, and more |
 
 Click any button and the app walks you through it step by step.
 
@@ -80,12 +92,20 @@ Use the text box at the very bottom. Examples that work right away:
 ```
 what changed?
 show recent commits
+show diff
+show commit graph
+history README.md
+blame README.md
+show stashes
+show remotes
+show conflicts
 commit all my changes with message "Fix login bug"
 push and commit everything with message "Add dark mode"
 stage changes then commit and push with message "Update readme"
 switch to main
 create branch feature/new-login
 stash my changes
+merge feature/new-login
 ```
 
 The app turns your sentence into a Git plan and shows it to you before doing anything.
@@ -149,6 +169,13 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `what changed?` | Show modified, staged, and untracked files |
 | `show recent commits` | Last 10 commits with hash and message |
 | `show diff` | Line-by-line changes in modified files |
+| `show commit graph` | Visual branch and commit graph |
+| `show stashes` | Local stash entries |
+| `inspect stash@{0}` | Patch for one stash entry |
+| `show remotes` | Configured remote URLs |
+| `history README.md` | File-specific commit history |
+| `blame README.md` | Line authorship for one file |
+| `show conflicts` | Conflicted files, marker snippets, and next steps |
 | `list branches` | All local and remote branches |
 | `fetch` | Refresh remote status (ahead/behind counts) |
 
@@ -161,12 +188,33 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `pull` | Fast-forward pull from remote |
 | `switch to main` | Checkout branch |
 | `create branch feature/name` | New branch from HEAD |
+| `delete branch feature/name` | Safely delete a merged local branch |
 | `stash my changes` | Save work in progress |
 | `stash pop` | Restore last stash |
+| `apply stash stash@{0}` | Apply a specific stash without dropping it |
+| `drop stash stash@{0}` | Delete a specific stash after approval |
+| `merge feature/name` | Merge a local branch |
+| `continue merge` | Commit a resolved merge |
+| `abort merge` | Abort an in-progress merge |
 | `unstage login.py` | Remove file from staging |
 | `discard changes in login.py` | Revert file to last commit |
 
 Or click any button in the command bar for a guided step-by-step wizard.
+
+---
+
+## Git visibility features
+
+AI Git Assistant is not just a chat box. It also gives you the day-to-day Git views people expect from a desktop client:
+
+- **Status view** - staged, modified, untracked, and conflicted files
+- **Full patch diff** - line-by-line additions and removals
+- **Commit graph** - visual history across branches
+- **File history** - follow changes to a specific file
+- **Blame** - see who last changed each line
+- **Stash tools** - list, inspect, apply, pop, and drop stashes
+- **Remote view** - see configured remotes and refresh ahead/behind counts
+- **Conflict guide** - list conflicted files, show conflict marker snippets, then continue or abort
 
 ---
 
@@ -198,6 +246,9 @@ Double-check your API key. Make sure you clicked **Save** before clicking **Test
 Ollama must be running before the app can use it. Open a terminal and run `ollama serve`, then try again.
 Also make sure you have pulled a model first: `ollama pull deepseek-r1:8b`
 
+**Something failed and you want to report it**
+Open the diagnostics panel and export the local logs. The log export is designed for bug reports and support.
+
 **The app remembered my repositories from a previous install**
 Settings and repo list are stored in `C:\Users\<you>\.ai-git-assistant\ai-git-assistant.db`.
 Delete that file for a completely clean start.
@@ -208,6 +259,7 @@ Delete that file for a completely clean start.
 
 - Your code and file contents are **never sent anywhere**
 - Only the **names of changed files**, current **branch**, and your **typed request** are sent to the AI provider when the AI fallback is used
+- API keys are stored locally with Windows encryption
 - If you use Ollama, everything stays on your machine - nothing leaves your computer
 
 ---
@@ -218,4 +270,4 @@ Found a bug or have a suggestion? Open an issue on this repository and describe 
 
 ---
 
-*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase A*
+*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase C*
