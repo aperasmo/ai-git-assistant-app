@@ -8,7 +8,7 @@ AI Git Assistant is a Windows desktop app that turns what you want to do into th
 
 ## Current app
 
-AI Git Assistant now includes the **Phase C Git client feature set**:
+AI Git Assistant now includes the **0.4.0 - Phase D feature set**:
 
 - Plain-English Git planning with review-before-run approval
 - Local repository management: add, initialise, clone, and remember repos
@@ -18,6 +18,8 @@ AI Git Assistant now includes the **Phase C Git client feature set**:
 - Commit, push, pull, branch switching, branch creation/deletion, staging, unstaging, and discard flows
 - Merge workflow with conflict detection, conflict snippets, guided continue, and abort
 - Diagnostics panel, local log viewer/export, encrypted API key storage, and repeatable Windows installer builds
+- AI commit-message generation from the selected commit wizard diff
+- AI change summaries, logical commit suggestions, PR-ready summaries, plan risk scoring, and privacy receipts
 
 ---
 
@@ -59,7 +61,7 @@ That's it. No Python, no Node.js, nothing else to install.
 
 ## Installation
 
-1. Download **`AI Git Assistant_0.3.0_x64-setup.exe`** from the [Releases](https://github.com/aperasmo/ai-git-assistant-app/releases) page
+1. Download **`AI Git Assistant_0.4.0_x64-setup.exe`** from the [Releases](https://github.com/aperasmo/ai-git-assistant-app/releases) page
 2. Double-click the installer and follow the prompts
 3. Launch **AI Git Assistant** from your Start menu or desktop shortcut
 
@@ -267,8 +269,10 @@ Delete that file for a completely clean start.
 
 ## Privacy
 
-- Your code and file contents are **never sent anywhere**
+- Your code and file contents are **never sent anywhere automatically**
 - Only the **names of changed files**, current **branch**, and your **typed request** are sent to the AI provider when the AI fallback is used
+- When you click **Generate with AI** in the commit wizard, only the selected diff/file snippets needed for that commit message are sent
+- When you click **Analyze changes**, the receipt shows the exact selected diff context sent to the configured AI provider
 - API keys are stored locally with Windows encryption
 - If you use Ollama, everything stays on your machine - nothing leaves your computer
 
@@ -280,4 +284,4 @@ Found a bug or have a suggestion? Open an issue on this repository and describe 
 
 ---
 
-*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase C*
+*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase D*
