@@ -8,7 +8,7 @@ AI Git Assistant is a Windows desktop app that turns what you want to do into th
 
 ## Current app
 
-AI Git Assistant now includes the **0.4.0 - Phase D feature set**:
+AI Git Assistant now includes the **0.4.3 - Phase D.3 feature set**:
 
 - Plain-English Git planning with review-before-run approval
 - Local repository management: add, initialise, clone, and remember repos
@@ -20,15 +20,18 @@ AI Git Assistant now includes the **0.4.0 - Phase D feature set**:
 - Diagnostics panel, local log viewer/export, encrypted API key storage, and repeatable Windows installer builds
 - AI commit-message generation from the selected commit wizard diff
 - AI change summaries, logical commit suggestions, PR-ready summaries, plan risk scoring, and privacy receipts
+- GitHub draft release publishing with tag/title/body fields and installer asset upload
+- Repository remote provider awareness for GitHub, GitLab, Bitbucket, Azure DevOps, local-only, and mixed-provider repos
 
 ---
 
 ## What it does
 
-- **Understands plain English** - type what you want, not `git add -A && git commit -m "…"`
+- **Understands plain English** - type what you want, not `git add -A && git commit -m "..."`
 - **Shows every step before running** - nothing happens without your approval
 - **Works with any Git repository** on your machine
-- **Gives you Git-client visibility** - inspect diffs, history, blame, branches, stashes, remotes, and conflicts
+- **Gives you Git-client visibility** - inspect diffs, history, blame, branches, stashes, remotes, tags, and conflicts
+- **Detects repository providers** - the right panel labels GitHub, GitLab, Bitbucket, Azure DevOps, local-only, and mixed-provider remotes
 - **Connects to an AI provider** (optional) so it can understand requests the built-in patterns don't cover
 - **Safe by design** - no force pushes, no hard resets, no surprises
 
@@ -38,15 +41,15 @@ AI Git Assistant now includes the **0.4.0 - Phase D feature set**:
 
 | | AI Git Assistant | GitKraken | gut | GitHub Copilot |
 |---|:---:|:---:|:---:|:---:|
-| Desktop GUI | ✅ | ✅ | ❌ CLI only | ❌ CLI only |
-| Plain English input | ✅ | ❌ partial | ✅ | ✅ |
-| Shows plan before running | ✅ always | ❌ | partial | ❌ |
-| Works offline (Ollama) | ✅ | ✅ | ❌ | ❌ |
-| Free - no subscription | ✅ | ❌ | ✅ | ❌ |
-| No account needed | ✅ | ❌ | ❌ | ❌ |
-| Built-in local planner (no API cost) | ✅ | ❌ | ❌ | ❌ |
-| Approval gate before writes | ✅ | ❌ | partial | ❌ |
-| Guided conflict workflow | ✅ | ✅ | ❌ | ❌ |
+| Desktop GUI | Yes | Yes | CLI only | CLI only |
+| Plain English input | Yes | Partial | Yes | Yes |
+| Shows plan before running | Yes, always | No | Partial | No |
+| Works offline (Ollama) | Yes | Yes | No | No |
+| Free - no subscription | Yes | No | Yes | No |
+| No account needed | Yes | No | No | No |
+| Built-in local planner (no API cost) | Yes | No | No | No |
+| Approval gate before writes | Yes | No | Partial | No |
+| Guided conflict workflow | Yes | Yes | No | No |
 
 ---
 
@@ -61,7 +64,7 @@ That's it. No Python, no Node.js, nothing else to install.
 
 ## Installation
 
-1. Download **`AI Git Assistant_0.4.0_x64-setup.exe`** from the [Releases](https://github.com/aperasmo/ai-git-assistant-app/releases) page
+1. Download the latest **`AI Git Assistant_*_x64-setup.exe`** installer from the [Releases](https://github.com/aperasmo/ai-git-assistant-app/releases) page
 2. Double-click the installer and follow the prompts
 3. Launch **AI Git Assistant** from your Start menu or desktop shortcut
 
@@ -83,7 +86,7 @@ The bar at the bottom has two rows of buttons:
 | Row | What it does |
 |-----|-------------|
 | **READ** | View status, diffs, commits, graph, branches, stashes, remotes, history, blame, conflicts |
-| **WRITE** | Commit, push, pull, switch branch, stash, merge, stage, unstage, discard, and more |
+| **WRITE** | Commit, push, pull, switch branch, stash, merge, tags, release drafts, and more |
 
 Click any button and the app walks you through it step by step.
 
@@ -91,7 +94,7 @@ Click any button and the app walks you through it step by step.
 
 Use the text box at the very bottom. Examples that work right away:
 
-```
+```text
 what changed?
 show recent commits
 show diff
@@ -101,7 +104,7 @@ blame README.md
 show stashes
 show remotes
 show tags
-show tag v0.3.0
+show tag v0.4.3
 show conflicts
 commit all my changes with message "Fix login bug"
 push and commit everything with message "Add dark mode"
@@ -110,8 +113,8 @@ switch to main
 create branch feature/new-login
 stash my changes
 merge feature/new-login
-create tag v0.3.0 with message "Release v0.3.0"
-push tag v0.3.0
+create tag v0.4.3 with message "Release v0.4.3"
+push tag v0.4.3
 ```
 
 The app turns your sentence into a Git plan and shows it to you before doing anything.
@@ -124,7 +127,7 @@ The built-in planner handles most common requests. For everything else - unusual
 
 ### Step 1 - Get an API key
 
-Choose one provider (all have free tiers or cheap pay-as-you-go):
+Choose one provider:
 
 | Provider | Sign up | Best for |
 |----------|---------|----------|
@@ -146,13 +149,41 @@ Choose one provider (all have free tiers or cheap pay-as-you-go):
 
 From now on, any request the app doesn't recognise locally is automatically sent to your AI provider. You still see and approve every step - the AI just figures out what steps to take.
 
+In the commit wizard, enable AI for the repository and click **Generate with AI** on the commit message step to draft a concise message from the selected file diff.
+
+---
+
+## GitHub release publishing
+
+Phase D.2 includes a guided **Draft release** flow in the WRITE command bar. Add a fine-grained GitHub token in **Settings** for the target repository with **Repository permissions -> Contents -> Read and write**, then choose **Draft release** to enter the tag, title, description, and installer asset.
+
+The app creates a new GitHub draft release and uploads one asset only after you confirm the final wizard step. Updating existing releases, replacing assets, and retargeting existing tags are intentionally not part of the current flow.
+
+Phase D.3 adds provider awareness before platform actions run. If the selected repository is GitLab, Bitbucket, Azure DevOps, local-only, or unknown, the app explains that GitHub draft releases are not available for that repository while confirming local Git workflows still work.
+
+If GitHub rejects the request with a token permission error, create or update a fine-grained token for that exact repository, enable **Contents: Read and write**, save it again in Settings, then retry.
+
+---
+
+## GitLab and other providers
+
+AI Git Assistant works with GitLab, Bitbucket, Azure DevOps, and self-hosted remotes as a normal Git client today. Status, staging, commits, push, pull, fetch, logs, diffs, branches, stashes, merges, tags, and AI summaries use standard Git and are provider-neutral.
+
+Provider-specific platform features are guarded by the selected repository's remotes:
+
+- **GitHub:** draft release publishing is available now
+- **GitLab:** normal Git workflows work now; merge requests and releases are planned
+- **Bitbucket:** normal Git workflows work now; pull requests are planned
+- **Azure DevOps:** normal Git workflows work now; platform integrations are planned
+- **Local only / unknown:** local Git workflows work now; platform actions stay disabled
+
 ---
 
 ## The approval screen
 
 Every write operation (commit, push, branch, etc.) shows a plan like this before running:
 
-```
+```text
 1. Stage 3 files
    git add -- src/App.tsx src/login.py README.md
 
@@ -170,6 +201,7 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 ## Supported commands
 
 ### Read (instant, no approval needed)
+
 | What to type | What it does |
 |---|---|
 | `what changed?` | Show modified, staged, and untracked files |
@@ -180,18 +212,19 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `inspect stash@{0}` | Patch for one stash entry |
 | `show remotes` | Configured remote URLs |
 | `show tags` | Local release tags |
-| `show tag v0.3.0` | Inspect one tag |
+| `show tag v0.4.3` | Inspect one tag |
 | `history README.md` | File-specific commit history |
 | `blame README.md` | Line authorship for one file |
-| `show conflicts` | Conflicted files, marker snippets, and next steps |
+| `show conflicts` | Conflict files and resolution guidance |
 | `list branches` | All local and remote branches |
-| `fetch` | Refresh remote status (ahead/behind counts) |
+| `fetch` | Refresh remote status and ahead/behind counts |
 
 ### Write (always shows a plan first)
+
 | What to type | What it does |
 |---|---|
-| `commit all my changes with message "..."` | Stage everything + commit |
-| `commit and push with message "..."` | Stage + commit + push |
+| `commit all my changes with message "..."` | Stage everything and commit |
+| `commit and push with message "..."` | Stage, commit, and push |
 | `push` | Push current branch to remote |
 | `pull` | Fast-forward pull from remote |
 | `switch to main` | Checkout branch |
@@ -201,16 +234,48 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `stash pop` | Restore last stash |
 | `apply stash stash@{0}` | Apply a specific stash without dropping it |
 | `drop stash stash@{0}` | Delete a specific stash after approval |
-| `merge feature/name` | Merge a local branch |
+| `merge feature/name` | Merge a local branch with guided conflict handling |
 | `continue merge` | Commit a resolved merge |
 | `abort merge` | Abort an in-progress merge |
-| `create tag v0.3.0 with message "Release v0.3.0"` | Create an annotated local tag |
-| `push tag v0.3.0` | Push one explicit tag to the remote |
-| `delete tag v0.3.0` | Delete a local tag after approval |
+| `create tag v0.4.3 with message "Release v0.4.3"` | Create an annotated local tag |
+| `push tag v0.4.3` | Push one explicit tag to the remote |
+| `delete tag v0.4.3` | Delete a local tag after approval |
+| `draft release` | Create a GitHub draft release and upload one asset |
 | `unstage login.py` | Remove file from staging |
 | `discard changes in login.py` | Revert file to last commit |
 
 Or click any button in the command bar for a guided step-by-step wizard.
+
+---
+
+## 20 common Git functions coverage
+
+> **18/20 available in app.** AI Git Assistant already covers the day-to-day Git workflow from the common "20 important Git functions" list. The remaining two are intentionally treated carefully: `git revert` is safe and planned for a reviewed app workflow; `git reset --hard` is destructive and intentionally blocked.
+
+| # | Function | App status |
+|---|---|---|
+| 1 | Initialize repository | Available |
+| 2 | Clone repository | Available |
+| 3 | Check status | Available |
+| 4 | Add/stage files | Available |
+| 5 | Commit changes | Available |
+| 6 | View commit history | Available |
+| 7 | Short log view | Available |
+| 8 | Create branch | Available |
+| 9 | Switch branch | Available |
+| 10 | Create and switch branch | Available |
+| 11 | Merge branch | Available |
+| 12 | Delete branch | Available |
+| 13 | Push changes | Available |
+| 14 | Pull changes | Available, fast-forward only |
+| 15 | Fetch changes | Available |
+| 16 | Check differences | Available |
+| 17 | Undo staging | Available |
+| 18 | Revert commit | Planned |
+| 19 | Reset to previous state | Blocked by design |
+| 20 | Stash changes | Available |
+
+**Why the two exceptions?** `git revert <commit>` creates a new commit that undoes an older commit, so it preserves history and is safe for shared branches. `git reset --hard <commit>` rewrites the current state and can permanently discard local work, so the app does not expose it as a normal workflow.
 
 ---
 
@@ -225,6 +290,7 @@ AI Git Assistant is not just a chat box. It also gives you the day-to-day Git vi
 - **Blame** - see who last changed each line
 - **Stash tools** - list, inspect, apply, pop, and drop stashes
 - **Remote view** - see configured remotes and refresh ahead/behind counts
+- **Remote provider awareness** - label GitHub, GitLab, Bitbucket, Azure DevOps, unknown, local-only, and mixed-provider remotes
 - **Release tags** - list, inspect, create, push, and delete explicit tags
 - **Conflict guide** - list conflicted files, show conflict marker snippets, then continue or abort
 
@@ -238,7 +304,7 @@ New to the app? Click the **?** button in the top-right corner to launch a guide
 
 ## Git command reference
 
-Click **Help** in the top-right corner for a full reference of every supported command - including syntax, examples, and which ones require a terminal.
+Click **Help** in the top-right corner for a full reference of every supported command - including syntax, examples, and which ones require a terminal. The help card also calls out planned and blocked commands such as `git revert <commit>` and `git reset --hard <commit>`.
 
 ---
 
@@ -253,6 +319,9 @@ Either rephrase your request, or set up an AI provider in Settings - it will han
 
 **Test connection shows an error**
 Double-check your API key. Make sure you clicked **Save** before clicking **Test connection**.
+
+**GitHub release publishing is rejected**
+Create or update a fine-grained GitHub token for the exact repository and set **Repository permissions -> Contents -> Read and write**. Save the token again in Settings, then retry the draft release.
 
 **Ollama: connection failed**
 Ollama must be running before the app can use it. Open a terminal and run `ollama serve`, then try again.
@@ -271,10 +340,20 @@ Delete that file for a completely clean start.
 
 - Your code and file contents are **never sent anywhere automatically**
 - Only the **names of changed files**, current **branch**, and your **typed request** are sent to the AI provider when the AI fallback is used
-- When you click **Generate with AI** in the commit wizard, only the selected diff/file snippets needed for that commit message are sent
-- When you click **Analyze changes**, the receipt shows the exact selected diff context sent to the configured AI provider
-- API keys are stored locally with Windows encryption
+- If you click **Generate with AI** for a commit message, the selected diff/file snippets are sent to your configured provider
+- If you click **Analyze changes**, the receipt shows the exact selected diff context sent to the configured AI provider
+- If you publish a GitHub draft release, the tag, title, description, and selected asset are sent to GitHub using your saved token
+- API keys and GitHub tokens are stored locally with Windows encryption
 - If you use Ollama, everything stays on your machine - nothing leaves your computer
+
+---
+
+## Roadmap
+
+- **Phase E:** Agent worktree control plane
+- **Phase F:** PR and review workflow
+- **Phase G:** Mac and Linux support
+- **Phase H:** Team context and conventions
 
 ---
 
@@ -284,4 +363,4 @@ Found a bug or have a suggestion? Open an issue on this repository and describe 
 
 ---
 
-*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase D*
+*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase D.3*
