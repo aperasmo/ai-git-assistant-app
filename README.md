@@ -6,22 +6,13 @@ AI Git Assistant is a Windows desktop app that turns what you want to do into th
 
 ---
 
-## Current app
+## Current release
 
-AI Git Assistant now includes the **0.4.3 - Phase D.3 feature set**:
+**0.4.4 - Phase D.4** is the current AI-native Git workflow release. It includes everything from Phase C plus premium AI commit-message generation, AI change summaries, logical commit suggestions, PR-ready summaries, plan risk scoring, privacy receipts for AI context, GitHub draft release publishing with installer asset upload, repository remote provider awareness, and richer commit-message style controls.
 
-- Plain-English Git planning with review-before-run approval
-- Local repository management: add, initialise, clone, and remember repos
-- Local planner plus optional LLM fallback for Anthropic, Gemini, OpenAI, Groq, and Ollama
-- Full diff viewer, commit graph, branch list, remote status, release tags, file history, and blame
-- Stash list, stash inspection, apply, pop, and drop
-- Commit, push, pull, branch switching, branch creation/deletion, staging, unstaging, and discard flows
-- Merge workflow with conflict detection, conflict snippets, guided continue, and abort
-- Diagnostics panel, local log viewer/export, encrypted API key storage, and repeatable Windows installer builds
-- AI commit-message generation from the selected commit wizard diff
-- AI change summaries, logical commit suggestions, PR-ready summaries, plan risk scoring, and privacy receipts
-- GitHub draft release publishing with tag/title/body fields and installer asset upload
-- Repository remote provider awareness for GitHub, GitLab, Bitbucket, Azure DevOps, local-only, and mixed-provider repos
+Versioning follows the product phase: Phase A = `0.1.x`, Phase B = `0.2.x`, Phase C = `0.3.x`, Phase D = `0.4.x`. Sub-phase improvements stay inside the same phase line, so Phase D.4 uses `0.4.4`.
+
+See [release notes](docs/RELEASE_NOTES.md) for the shipped feature list and Phase B hardening notes.
 
 ---
 
@@ -104,7 +95,7 @@ blame README.md
 show stashes
 show remotes
 show tags
-show tag v0.4.3
+show tag v0.4.4
 show conflicts
 commit all my changes with message "Fix login bug"
 push and commit everything with message "Add dark mode"
@@ -113,8 +104,8 @@ switch to main
 create branch feature/new-login
 stash my changes
 merge feature/new-login
-create tag v0.4.3 with message "Release v0.4.3"
-push tag v0.4.3
+create tag v0.4.4 with message "Release v0.4.4"
+push tag v0.4.4
 ```
 
 The app turns your sentence into a Git plan and shows it to you before doing anything.
@@ -149,7 +140,7 @@ Choose one provider:
 
 From now on, any request the app doesn't recognise locally is automatically sent to your AI provider. You still see and approve every step - the AI just figures out what steps to take.
 
-In the commit wizard, enable AI for the repository and click **Generate with AI** on the commit message step to draft a concise message from the selected file diff.
+In the commit wizard, enable AI for the repository and choose a commit-message style: **Detailed**, **Concise**, **Conventional**, or **Release**. Click **Generate with AI** to draft one consolidated commit message from the selected files. For multi-file changes, the app sends an organized in-memory context pack first - grouped paths, change status, diff stats, detected domains, recent commit subjects, and concise file hints - then the selected diff/file snippets, so the AI can produce a broader subject plus useful body bullets instead of overfitting to one file.
 
 ---
 
@@ -212,7 +203,7 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `inspect stash@{0}` | Patch for one stash entry |
 | `show remotes` | Configured remote URLs |
 | `show tags` | Local release tags |
-| `show tag v0.4.3` | Inspect one tag |
+| `show tag v0.4.4` | Inspect one tag |
 | `history README.md` | File-specific commit history |
 | `blame README.md` | Line authorship for one file |
 | `show conflicts` | Conflict files and resolution guidance |
@@ -237,9 +228,9 @@ Click **Approve and execute** to run it, or **Cancel** to go back. Nothing ever 
 | `merge feature/name` | Merge a local branch with guided conflict handling |
 | `continue merge` | Commit a resolved merge |
 | `abort merge` | Abort an in-progress merge |
-| `create tag v0.4.3 with message "Release v0.4.3"` | Create an annotated local tag |
-| `push tag v0.4.3` | Push one explicit tag to the remote |
-| `delete tag v0.4.3` | Delete a local tag after approval |
+| `create tag v0.4.4 with message "Release v0.4.4"` | Create an annotated local tag |
+| `push tag v0.4.4` | Push one explicit tag to the remote |
+| `delete tag v0.4.4` | Delete a local tag after approval |
 | `draft release` | Create a GitHub draft release and upload one asset |
 | `unstage login.py` | Remove file from staging |
 | `discard changes in login.py` | Revert file to last commit |
@@ -340,7 +331,7 @@ Delete that file for a completely clean start.
 
 - Your code and file contents are **never sent anywhere automatically**
 - Only the **names of changed files**, current **branch**, and your **typed request** are sent to the AI provider when the AI fallback is used
-- If you click **Generate with AI** for a commit message, the selected diff/file snippets are sent to your configured provider
+- If you click **Generate with AI** for a commit message, grouped selected-file context, diff stats, recent commit subjects, and the selected diff/file snippets are sent to your configured provider
 - If you click **Analyze changes**, the receipt shows the exact selected diff context sent to the configured AI provider
 - If you publish a GitHub draft release, the tag, title, description, and selected asset are sent to GitHub using your saved token
 - API keys and GitHub tokens are stored locally with Windows encryption
@@ -363,4 +354,4 @@ Found a bug or have a suggestion? Open an issue on this repository and describe 
 
 ---
 
-*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase D.3*
+*Built with [Tauri](https://tauri.app) · [React](https://react.dev) · Python FastAPI · Phase D.4*
